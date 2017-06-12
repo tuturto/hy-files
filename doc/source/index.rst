@@ -25,6 +25,7 @@ Welcome to hy-files
    modules_and_packages
    being_friends_with_python
    macros
+   license
 
 What you need for this book
 ===========================
@@ -111,7 +112,6 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
 .. [#f1] Albeit slowly falling out of favor, Internet Relay Chat is still
