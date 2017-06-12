@@ -93,10 +93,10 @@ As this book can't possibly cover everything about Hy, some more handy resources
 are listed here in no particular order:
 
 Code, open issues and other matters related to development of the language can
-be found at `GitHub: <https://github.com/hylang/hy>`.
+be found at `GitHub: <https://github.com/hylang/hy>`_.
 
 Up to date documenation is available online at
-`Read the Docs <http://docs.hylang.org/en/latest/>`. Be mindful that there are
+`Read the Docs <http://docs.hylang.org/en/latest/>`_. Be mindful that there are
 several versions of the documentation online, so be sure to select the most
 applicable one from the menu bottom left.
 
@@ -105,7 +105,7 @@ best place to start asking questions as many core developers frequent the
 channel.
 
 Semi-actively discussion is also held in hylang-discuss at
-`Google groups <https://groups.google.com/forum/#!forum/hylang-discuss>`.
+`Google groups <https://groups.google.com/forum/#!forum/hylang-discuss>`_.
 
 Indices and tables
 ==================
