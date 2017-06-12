@@ -22,6 +22,8 @@ side-effects. These are changes that occur somewhere in the program (like
 setting a variable or printing on screen) or elsewhere in the computer system
 (like writing into a file).
 
+.. index:: function; defining
+
 Functions are defined using *defn*, as show in listing below. It defines a
 function *sum-if-even*, which has two formal parameters *a* and *b*. Inside of
 the function there's if statement that will first check if both arguments a

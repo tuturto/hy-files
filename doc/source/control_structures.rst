@@ -27,6 +27,8 @@ values are considered truthy:
 * number 0
 * any empty sequence or collection
 
+.. index:: boolean logic; and
+
 *And* operator takes 0 or more arguments and returns last argument if all of
 them are True or no parameters were passed at all, as shown below. Notice how
 in the last example we're passing in three numbers and last one of them is
@@ -47,6 +49,8 @@ an operation with the last one of them.
    True
    => (and 1 2 3)
    3
+
+.. index:: boolean logic; or
 
 *Or* operator takes 0 or more arguments and returns first truthy argument if
 one or more of them are True. Some examples of usage are shown below. Notice
@@ -73,6 +77,8 @@ In order to see actual return *type*, one can use *type* as shown here:
    => (type (or))
    <class 'NoneType'>
 
+.. index:: boolean logic; not
+
 Sometimes there's need to reverse Boolean value, so that True turns to False
 and False turns to True. That can be achieved with *not* operator. It takes
 one argument and always return either True or False, as shown below. While
@@ -90,6 +96,8 @@ returned.
    False
    => (not [])
    True
+
+.. index:: boolean logic; xor
 
 The final operator we're going to learn now is *xor*, short for exclusive or.
 
