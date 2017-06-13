@@ -1,6 +1,12 @@
 Version
 =======
 
+0.2
+---
+
+Version 0.2 is currently being worked on and list of major changes will be added
+here as they are being done.
+
 0.1
 ---
 
@@ -16,5 +22,3 @@ Boolean algebra (save for xor) is covered in chapter :doc:`control_structures`.
 
 :doc:`functions` has basic information on how to define new functions. Different
 types of parameters are explained also.
-
-
