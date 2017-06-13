@@ -11,20 +11,8 @@ Welcome to hy-files
    :caption: Contents:
 
    intro
-   getting_started
-   crash_course
-   variables
    control_structures
    functions
-   data_structures
-   working_with_sequences
-   multimethods
-   building_pipelines_for_data
-   reading_and_writing_files
-   classes_and_objects
-   modules_and_packages
-   being_friends_with_python
-   macros
    version
    license
 
