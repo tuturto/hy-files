@@ -1,14 +1,22 @@
 Version
 =======
 
+Current version
+---------------
+
 0.2
----
++++
 
 Version 0.2 is currently being worked on and list of major changes will be added
 here as they are being done.
 
+* restructure index and introduction
+
+Past versions
+-------------
+
 0.1
----
++++
 
 This is the initial version of the book. It starts with a preface at
 :doc:`index`, explaining goal of the book, some conventions and listing
