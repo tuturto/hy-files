@@ -25,6 +25,7 @@ Welcome to hy-files
    modules_and_packages
    being_friends_with_python
    macros
+   version
    license
 
 What you need for this book
@@ -86,6 +87,11 @@ entered.
    5
 
 New terms and important words are shown as: *Important new term*.
+
+As this is a living book, it will evolve and change over time. At the beginning
+it is rather empty, but it will be filled eventually. Readers are encouraged to
+check :doc:`version` for information what parts have recently been added or
+majorly edited.
 
 Resources
 =========
