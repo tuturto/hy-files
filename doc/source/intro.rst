@@ -17,5 +17,9 @@ left out. Otherwise this book would have been an unwieldy tome that was never
 finished. Sometimes it refers to concepts that will be covered later in
 detail, but I have tried to keep that in minimum.
 
+Source code for this book is publicly available at
+`GitHub <https://github.com/tuturto/hy-files>`_, where anyone can view it and
+offer their feedback or even contributions.
+
 .. [#f1] Lisp is a whole family of languages, originating from the 1950s. 
          Modern variants include such languages as Clojure, LFE and Racket.
