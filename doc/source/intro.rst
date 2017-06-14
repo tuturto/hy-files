@@ -17,9 +17,8 @@ left out. Otherwise this book would have been an unwieldy tome that was never
 finished. Sometimes it refers to concepts that will be covered later in
 detail, but I have tried to keep that in minimum.
 
-Source code for this book is publicly available at
-`GitHub <https://github.com/tuturto/hy-files>`_, where anyone can view it and
-offer their feedback or even contributions.
+`Source code <https://github.com/tuturto/hy-files>`_ for the book is available
+for anyone to view and offer their feedback or even contributions.
 
 What you need for this book
 ===========================

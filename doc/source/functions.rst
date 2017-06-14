@@ -24,13 +24,28 @@ setting a variable or printing on screen) or elsewhere in the computer system
 
 .. index:: function; defining
 
-Functions are defined using *defn*, as show in listing below. It defines a
-function *sum-if-even*, which has two formal parameters *a* and *b*. Inside of
-the function there's if statement that will first check if both arguments a
-and b are even and then add them together and return the resulting number.
-If either one of the arguments is not even, function simply returns 0. Defn
-is relatively complex tool and has several options. Next we'll take closer
-look on how to use them to your advantage.
+Functions are defined using *fn*, which creates a new function. In order to
+use the defined function, it usually needs to be bound to a name. This pattern
+is so common that a special shortcut called *defn* has been added. It takes
+name and definition of a function and then creates and binds the function into
+the name. Following two examples will have identical results:
+
+.. code-block:: hylang
+
+   (setv hello (fn [person] (print "hello " person)))
+
+   (defn hello [person]
+     (print "hello " person))
+
+Below is another example of using *defn*. It defines a function *sum-if-even*,
+which has two formal parameters *a* and *b*. Inside of the function there's if
+statement that will first check if both arguments a and b are even and then
+add them together and return the resulting number. If either one of the
+arguments is not even, function simply returns 0. Unlike many other languages,
+Hy doesn't have explicit return keyword. As you can see, the value of last
+expression executed is also the return value of the function. Defn is
+relatively complex tool and has several options. Next we'll take closer look
+on how to use them to your advantage.
 
 .. code-block:: hylang
 
@@ -211,8 +226,131 @@ arguments haven't been supplied, a different message is given.
    => (collect "burglar")
    "burglar didn't find anything"
 
-Higher order functions
+Higher-order functions
 ----------------------
+
+Higher-order functions are just ordinary functions that have functions as
+their formal parameters or return value (or even both). In essence, they are
+functions that deal with other functions, hence the name. They are useful in
+many situations, allowing one to write generic code that can be easily adapted
+to handle specific cases. For example, here is an example of making an
+alchemy potion. Each potion has dry *ingredients* and one or more *liquids*.
+Dry ingredients are simply mixed together, while liquids might need different
+approach depending on what kind of potion is being made. The choice of how to
+*prepare* liquids is left to the discretion of the alchemist and they need to
+supply *mix-potion* with the function that they would like to use to prepare
+liquids.
+
+.. code-block:: hylang
+
+   (defn mix-potion [ingredients liquids prepare]
+     (setv mixture (mix ingredients))
+     (setv liquid (prepare liquids))
+     (combine liquid mixture))
+
+Lets pretend that some other alchemist has defined different ways of preparing
+mixtures for us as show below:
+
+.. code-block:: hylang
+
+   (defn stir [liquids]
+      ...)
+
+   (defn slosh [liquids]
+      ...)
+
+   (defn carefully-mix [liquids]
+      ...)
+
+On a superficial level, each function looks same. They might have different
+names, but they have same amount of parameters and return similar things
+(mixture of liquids). To use them in potion making, our alchemist can do
+something like this:
+
+.. code-block:: hylang
+
+   (mix-potion ["pixie dust", "fly wings"]
+               ["water", "juice"]
+               slosh)
+
+   (mix-potion ["olive"]
+               ["gin", "vermouth"]
+               stir)
+
+   (mix-potion ["newt eyes", "dragon nail", "basilisk scale"]
+               ["nitric acid", "hydrochloric acid"]
+               carefully-mix)
+
+Each of these would create a new potion, using the specified ingredients,
+liquids and method of combining liquids. Such way of programming lets us to
+write general code, which is not interested on the tiny details, but in the
+overall process of how to do something. While working with such code, the
+programmer can concentrate on problem at the hand and defer details to another
+time or even have somebody else to help writing them.
+
+.. index:: 
+   single: function; anonymous
+
+It is also possible to write functions that create new function when called.
+While it is possible to use *defn* to do so, often it is simpler to use *fn*.
+These functions are sometimes called anonymous, as they are not bound to a
+name.
+
+To illustrate this, lets look a different kind of problem. Our friends in
+gnomish bank are handling deposits of customers from various different
+regions. While gold is easy to handle, it is the letters that are causing
+teller gnomes headache. Even simple things like greetings in the beginning
+of a letter are hard to keep in order as elfs, humans and orcs all have
+different customs that gnomes try to observe. In order to alleviate this
+problem, one particularly crafty gnome has designed an automatic letter
+writing system. Like everything that gnomes do, the system is very ornate
+and flexible. It consists of very many pieces that can be combined together
+in myriad ways. One such part is greeter-crafter. When given a culture, this
+device will construct another device which will know how to greet a person
+of that culture.
+
+.. code-block:: hylang
+
+   (defn greeter-crafter [culture]
+     (if (= culture "elven") (fn [person]
+                               (+ "The most illustrious " person.name))
+         (= culture "human") (fn [person]
+                               (+ "Greetings " person.name))
+         (= culture "orcish") (fn [person]
+                               (+ "Saluations " person.name))
+         (fn [person]
+           "Dear sir or madam")))
+
+Heart of the routine is a case study. *culture* parameter is examined and
+corresponding branch of if statement is executed. There are three special
+cases, each corresponding to a specific culture and a generic one that is used
+when unknown culture is given as an argument. Each of the branches will
+create a new function and return it. Following piece of code highlights how
+greeter-crafter could be used to personalize monthly report letter.
+
+.. code-block:: hylang
+
+   (defn handle-monthly-letter [person]
+     (setv greeter (greeter-crafter (culture-of person)))
+     (setv letter (+ (greeter person)
+                     (write-body person)
+                     (in-closing person)))
+     (send letter))
+
+First a *greeter* is constructed by using greeter-crafter. Then a letter
+consisting of greeting, body of text and closing statement is crafted and
+finally the letter is sent. In case gnomes would like to send yearly letters
+too, they could reuse the greeter-crafter and would only need to create
+new gadget that knows how to write body of the yearly letter. And if later
+a new culture would start doing business with the gnomes, they would add
+this culture to greeter-crafter and all different types of letters would
+automatically start greeting this new culture correctly.
+
+And if gnomes would require more intricate system, nothing would stop them
+from creating *greeter-crafter-creator*, a device that can build
+greeter-crafters which know how to build greeters that know how to address
+members of a specific culture. Very sophisticated, intricate and maybe
+even confusing system.
 
 Decorators
 ----------
