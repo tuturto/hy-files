@@ -381,13 +381,13 @@ will clarify this:
    8
 
 *create-adder* is a higher-order function (we talked about these just
-recently at `:ref:functions-higher-order-functions` that takes parameter
+recently at :ref:`functions-higher-order-functions` that takes parameter
 *number* and returns a new function that takes parameter *n*. When called,
 this new function will add *n* and *number* together. It has captured the
 value of *number* when it was initially created.
 
 This useful technique can be used to cut down amount of classes (We will go
-over them in detail later at `:ref:classes-and-objects`, but now it is enough
+over them in detail later at :ref:`classes-and-objects`, but now it is enough
 to know that they are a way of packaging data and functions that operate on
 that data together). As always, an example will hopefully clarify the idea.
 
