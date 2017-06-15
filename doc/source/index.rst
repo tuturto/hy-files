@@ -11,8 +11,11 @@ Welcome to hy-files
    :caption: Contents:
 
    intro
+   variables
    control_structures
    functions
+   data_structures
+   classes_and_objects
    version
    license
 

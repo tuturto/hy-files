@@ -226,6 +226,8 @@ arguments haven't been supplied, a different message is given.
    => (collect "burglar")
    "burglar didn't find anything"
 
+.. _functions-higher-order-functions:
+
 Higher-order functions
 ----------------------
 
@@ -352,8 +354,192 @@ greeter-crafters which know how to build greeters that know how to address
 members of a specific culture. Very sophisticated, intricate and maybe
 even confusing system.
 
+Closures
+++++++++
+
+.. index:: 
+   single: function; closure
+   seealso: variable; scope
+
+Closures are functions accessing symbols outside their scope (we talked about
+scope earlier in :ref:`variables-scope`). When such a function is defined,
+it *captures* symbols that it refers to, but are outside of its scope. These
+symbols must have been defined in the outer scope of the function. An example
+will clarify this:
+
+.. code-block:: hylang
+
+   => (defn create-adder [number]
+   ...  (fn [n] (+ n number)))
+
+   => (setv add-1 (create-adder 1))
+   => (add-1 5)
+   6
+
+   => (setv add-5 (create-adder 5))
+   => (add-1 (add-5 2))
+   8
+
+*create-adder* is a higher-order function (we talked about these just
+recently at `:ref:functions-higher-order-functions` that takes parameter
+*number* and returns a new function that takes parameter *n*. When called,
+this new function will add *n* and *number* together. It has captured the
+value of *number* when it was initially created.
+
+This useful technique can be used to cut down amount of classes (We will go
+over them in detail later at `:ref:classes-and-objects`, but now it is enough
+to know that they are a way of packaging data and functions that operate on
+that data together). As always, an example will hopefully clarify the idea.
+
+A new smithy has been opened by a drawf. It is small, but has latest
+automated tools developed by gnomes, which helps the smith to get their work
+done neatly and efficiently. There's a device from creating swords, another
+for shoe nails and third one for iron keys:
+
+.. code-block:: hylang
+
+  (defn create-sword [] ...)
+
+  (defn create-shoenail [] ...)
+
+  (defn create-key [] ...)
+
+Each of these tools create a basic item that the smith can then continue work
+on and customize according to their client's needs. However, as fame and
+client base of the smith grows, they soon find themself unable to take all the
+jobs that are offered to them. The smith considers hiring another smith to
+work for them, but that would require building a bigger smithy and splitting
+the profits. Instead of that, the smith asks gnomes to build them more tools
+for different kinds of items. The first batch of such tools is for swords
+only:
+
+.. code-block:: hylang
+
+   (defn create-short-sword [] ...)
+
+   (defn create-long-sword [] ...)
+
+   (defn create-claymore [] ...)
+
+While the approach works, the drawf is a bit unhappy as now they have lots and
+lots of very specialized tools all over the smithy. What used to be nice and
+tidy smithy is now very cramped and untidy place. Something needs to be done
+before the smith accidentally steps on one of the tools that are now laying on
+every possible surface. Ingenious gnomes quickly come up with a solution.
+They design a special sword maker machine, that can make all kinds of swords.
+User only needs to supply it with a dictionary (covered in more detail
+in :ref:`data-structures-dictionaries`) that describes what kind of sword
+should be created:
+
+.. code-block:: hylang
+
+   (setv short-sword { :blade-length 'short
+                       :blade-width 'medium
+                       :hilt 'standard })
+
+   (create-sword short-sword)
+
+Business was booming and smith was really happy with his reduced amount of
+tools. Smithy was neat and tidy again. Sure, they had to keep track of
+little metal discs that contained dictionaries for preparing different kinds
+of items. While the smith tried to be careful and pay attention to item
+makers and discs, sometimes they still managed to use wrong type of device
+with a disc. Usually disc and device were so incompatible that nothing
+happened, but from time to time he ended up with tiny daggers or sword
+sized nails that were simply unusable. Discs were clearly labeled, but the
+devices were hard to keep track of. Like always, gnomes had a solution for
+this problem too. Each dictionary would have information that clearly
+indicated what kind of item it would create. And instead of multiple devices,
+there were only one device that was needed.
+
+.. code-block:: hylang
+
+   (setv short-sword { :type 'sword
+                       :blade-length 'short
+                       :blade-width 'medium
+                       :hilt 'standard })
+
+   (create-item short-sword)
+
+However, this omni-maker was very complex device and the smith could only
+afford one of them. Suddenly they had to spend lot of time waiting for the
+omni-device to finish, so that they could load next dictionary and start
+making the next item. Especially frustrating this was when multiple similar
+items had been ordered. But again, the gnomes has a solution. Omni-maker
+was modified to create not items, but devices for creating those items. This
+higher-order maker could then used to right tool for right job when needed
+and creating three similar swords was easy. They could even be engraved
+with the owner's name:
+
+.. code-block:: hylang
+
+   (setv sword-creator (omni-maker sword-dictionary))
+   (sword-creator "Pete the Adventurer")
+   (sword-creator "Uglak the Goblin")
+   (sword-creator "Jaska the Conqueror")
+
+When device was no longer needed, it could be melted down in forge and used
+to create different device later when needed again.
+
+In the silly example earlier, item makers were analoguous to functions. The
+smith started with set of specialized functions and kept adding more and more
+that were doing sort of similar tasks than the ones they already had. Gnomes
+then fixed this eventually coming up with a omni-maker, which in programming
+terms was higher-order function. It could create another function that
+performed the required task and could be reused as often as needed. The
+resulting function was also a closure, as it captured the dictionary passed
+to. We didn't look inside of these devices, but they might look something
+like the following code:
+
+.. code-block:: hylang
+
+   (defn omni-maker [config]
+     (setv item-type (:type config))
+     (if (= item-type 'sword)  (fn [engraving]
+                                 (setv item (new-sword))
+                                 (blade-length item (:blade-length config))
+                                 (blade-width item (:blade-width config))
+                                 (add-hilt (:hilt config))
+                                 (add-text engraving))
+         (= item-type 'helmet) (fn [engraving]
+                                 ..)))
+
+Notice how argument passed into *config* parameter of omni-maker is later on
+used by anonymous function that was created by omni-maker.
+
+.. note:: Closure does not create copies of values it captures, but uses them
+          as they are. If you create closure that uses mutable variable, be
+          extra mindful that you do not accidentally change it. Changed values
+          will be visible to every closure using the original value.
+
+Closures are useful when you want to have a group of functions that do a
+similar task, but slightly differently. In such case you can create a factory
+function that constructs specialized functions for you, which are using
+data they captured while being created. For example, a function that converts
+values between two different system (say, metric and imperial), could have
+the conversion factor fed to it by a factory function. The act of converting
+between two linearly related systems is always the same, regardless of the
+factor. You can represent the act of conversion in one part of the system and
+reuse it multiple times for converting between different systems.
+
+.. code-block:: hylang
+
+   => (defn create-converter [factor]
+   ...  (fn [value]
+   ...    (* value factor)))
+
+   => (setv feet-to-meters (create-converter 0.3048))
+   => (feet-to-meters 5)
+   1.524
+
+   => (setv kg-to-pounds (create-converter 2.2046))
+   => (kg-to-pounds 5)
+   11.023
+
 Decorators
 ----------
+
+Decorators add a whole new layer to functions, figuratively and literally.
 
 Recursion
 ---------
