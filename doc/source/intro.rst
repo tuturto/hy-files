@@ -21,7 +21,7 @@ detail, but I have tried to keep that in minimum.
 for anyone to view and offer their feedback or even contributions.
 
 What you need for this book
-===========================
+---------------------------
 
 Computer is a good start. Hy is built using Python, so an installed Python
 environment is a very good thing to have. While Hy works with several different
@@ -33,7 +33,7 @@ setting up really nice Hy development environment using emacs or vim for
 example, but that's beyond the scope of this book.
 
 Who is this book for?
-=====================
+---------------------
 
 Previous experience with programming isn't neccessary, as the book tries to
 build from ground up. The book is aimed at people who haven't programmed much
@@ -46,7 +46,7 @@ other languages and who are curious about Hy or Lisps in general. It should
 reasonably work for people who don't have any programming experience at all.
 
 Conventions
-===========
+-----------
 
 In this book, you'll find a number of text styles used to distinguish between
 different types of information. Here are some examples of them and their
@@ -86,7 +86,7 @@ check :doc:`version` for information what parts have recently been added or
 majorly edited.
 
 Resources
-=========
+---------
 
 As this book can't possibly cover everything about Hy, some more handy resources
 are listed here in no particular order:

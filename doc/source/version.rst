@@ -11,7 +11,7 @@ Version 0.2 is currently being worked on and list of major changes will be added
 here as they are being done.
 
 * restructure index and introduction
-* higher-order functions
+* higher-order functions, closures
 
 Past versions
 -------------
