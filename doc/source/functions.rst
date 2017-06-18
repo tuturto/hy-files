@@ -22,7 +22,8 @@ side-effects. These are changes that occur somewhere in the program (like
 setting a variable or printing on screen) or elsewhere in the computer system
 (like writing into a file).
 
-.. index:: function; defining
+.. index:: 
+   single: function; defining
 
 Functions are defined using *fn*, which creates a new function. In order to
 use the defined function, it usually needs to be bound to a name. This pattern
@@ -132,6 +133,9 @@ and spells.
          (badly-hurt? warrior) (find-wizard warrior)
          (wander-around warrior)))
 
+.. index:: 
+   single: function; optional parameters
+
 Optional parameters
 -------------------
 
@@ -179,6 +183,9 @@ There are several ways of calling the function, as shown here:
 
    => (cast "mage" "acid cloud" "super-strong")
    "mage casts super-strong acid cloud"
+
+.. index:: 
+   single: function; positional parameters
 
 Positional parameters
 ---------------------
