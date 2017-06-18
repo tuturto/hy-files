@@ -366,7 +366,6 @@ Closures
 
 .. index:: 
    single: function; closure
-   seealso: variable; scope
 
 Closures are functions accessing symbols outside their scope (we talked about
 scope earlier in :ref:`variables-scope`). When such a function is defined,
