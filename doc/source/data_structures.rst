@@ -43,6 +43,29 @@ Our first structure is tuple. They're *ordered* (meaning that the values you put
 in have well defined and meaningful location within the data structure),
 *immutable* collection of zero or more values. 
 
+Creation
+++++++++
+
+There are two ways of creating tuples: using *,* literal or *tuple* initializer
+(initializers are covered in more detail
+:ref:`later <classes-and-objects-initializing>` when we talk about classes and
+objects).
+
+The *,* literal takes a list of values that are placed into the tuple:
+
+.. code-block:: hylang
+
+   => (, 1 2 3)
+   (, 1 2 3)
+
+   => (, "one" 2 "III")
+   (, "one" 2 "III")
+
+.. todo:: link to iterables here
+
+*tuple* initializer take a single *iterable*, which items are used to initialize
+a new tuple.
+
 ...
 
 Within filing department, Oseo usually uses tuples for storing small pieces of
@@ -92,7 +115,6 @@ and is useful technique. It allows you to take a tuple or list (which we will
 cover a bit later in :ref:`data-structures-lists`) and assign each individual
 element to a variable. Amount of symbol names in first tuple have to match to
 the amount of elements in the second one, otherwise an error will be reported.
-
 
 .. index:: 
    single: datastructures; named tuple

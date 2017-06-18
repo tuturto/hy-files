@@ -18,6 +18,7 @@ Welcome to hy-files
    classes_and_objects
    version
    license
+   todo
 
 Indices and tables
 ==================
