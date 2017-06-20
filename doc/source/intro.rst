@@ -88,8 +88,8 @@ majorly edited.
 Resources
 ---------
 
-As this book can't possibly cover everything about Hy, some more handy resources
-are listed here in no particular order:
+As this book can't possibly cover everything about Hy, some more handy
+resources are listed here in no particular order:
 
 Code, open issues and other matters related to development of the language can
 be found at `GitHub <https://github.com/hylang/hy>`_.

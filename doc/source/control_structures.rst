@@ -112,6 +112,8 @@ Short circuiting
 
 fill in details here
 
+.. _control-structures-common-predicates:
+
 Common predicates
 -----------------
 

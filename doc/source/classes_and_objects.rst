@@ -8,3 +8,8 @@ Classes and Objects
 
 Initializing object
 -------------------
+
+.. _classes-and-objects-methods:
+
+Methods
+-------
