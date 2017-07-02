@@ -231,13 +231,37 @@ tuple and creating a new one is all that needs to be done.
 Named tuples
 ------------
 
-.. index:: 
-   single: datastructures; set
-.. _data-structures-sets:
+Named tuples are quite similar to regular ones and offer all the same tools
+(and then some more). The advantage of named tuples over regular ones is that
+their fields can have descriptive names. Instead of having to remember what
+data is stored in which index, the programmer only has to remember what name
+fields have been given. This also makes it easier to read code written by
+someone else, as you do not have to guess what is stored in index 2 for
+example.
+
+Named tuples are not available by default, so you have to import the
+appropriate function as described in :ref:`modules-and-packages-importing`.
+This is needed at the beginning of every file where you want to use
+*namedtuple* function and in :ref:`REPL <crash-course-repl>` before you use
+the function:
 
 .. code-block:: hylang
 
    => (import [collections [namedtuple]])
+
+First step is to create a :ref:`type <variables-types>` to represent the
+specific named tuple and store it somewhere for future use:
+
+.. code-block:: hylang
+
+   (setv Measurement (namedtuple "Measurement" ["value" "unit"]))
+
+
+
+.. index:: 
+   single: datastructures; set
+.. _data-structures-sets:
+
 
 Oseo's work
 +++++++++++
