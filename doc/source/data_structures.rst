@@ -256,15 +256,84 @@ specific named tuple and store it somewhere for future use:
 
    (setv Measurement (namedtuple "Measurement" ["value" "unit"]))
 
+After the type has been created, it can be used just like any other ordinary
+type. Attributes that we specified earlier are available and can be accessed:
 
+.. code-block:: hylang
+
+  => (setv box-width (Measurement 5 "meters"))
+  => (. box-width unit)
+  "meters"
+  => (. box-width value)
+  5
+
+.. TODO:: keyword parameters link here
+
+One can use keyword parameters to make creation of a tuple clear:
+
+.. code-block:: hylang
+
+  => (setv box-height (Measurement :unit "meters" :value 2)
+  => (. box-height value)
+  2
+
+Indexed access and deconstructing works just like with regular tuples:
+
+.. code-block:: hylang
+
+  => (first box-width)
+  5
+  => (setv (, measurement unit) box-width)
+  (5, "meters")
+  => unit
+  "meters"
+
+Oseo's work
++++++++++++
+
+Oseo was really delighted when he learned about named tuples. No more second
+guessing what was stored in the 3rd element of a tuple. Names would help
+him and his colleaques at the filing department to keep things in neat order
+from now on. Instead of fixing the old labeling system for parcels (after all,
+it was working just fine), he was tasked with a new problem: interdepartment
+mail system.
+
+Filing department was only one of the many departments of the 4th Order and
+sometimes they needed to communicate with each other. The problem was that
+the 4th Order had grown very organically, sprouting new departments here and
+there and was generally really convoluted mess. All communications between
+the departments was rather ad hoc solutions and it took considerable amount of
+time and energy to even track down how to send message to a specific
+department. There were just so many different systems in use.
+
+To alleaviate the problem, Oseo decided that there needs to be one central
+location within filing department, where one can simply drop their message
+in a tiny metal cylinder, that then gets delivered to destination with 
+appropriate means:
+
+.. code-block:: hylang
+
+  (setv Message (namedtuple "Message" [recipient department message-text]))
+
+  (create-message recipient department text
+    (Message :recipient recipient
+             :department department
+             :message-text text))
+
+  (drop-off-message message
+    (setv wrapped (wrap-message message))
+    (dispatch-message wrapped))
+
+Because there are many different ways of delivering message, Oseo built a
+system that wraps original message inside another metal tube. This metal tube
+is constructed specifically to the specifications of the target department.
+Some prefer plain tube, some require intricate carvings. They all have slightly
+different expectations on how addresses are written even. But all these
+details are taken care by ``wrap-message`` function.
 
 .. index:: 
    single: datastructures; set
 .. _data-structures-sets:
-
-
-Oseo's work
-+++++++++++
 
 Sets
 ----
