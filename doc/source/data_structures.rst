@@ -315,12 +315,12 @@ appropriate means:
 
   (setv Message (namedtuple "Message" [recipient department message-text]))
 
-  (create-message recipient department text
+  (create-message [recipient department text]
     (Message :recipient recipient
              :department department
              :message-text text))
 
-  (drop-off-message message
+  (drop-off-message [message]
     (setv wrapped (wrap-message message))
     (dispatch-message wrapped))
 
@@ -330,6 +330,54 @@ is constructed specifically to the specifications of the target department.
 Some prefer plain tube, some require intricate carvings. They all have slightly
 different expectations on how addresses are written even. But all these
 details are taken care by ``wrap-message`` function.
+
+``dispatch-message`` is responsible for routing wrapped message to correct
+direction. It does this by examining wrapped message, which contains
+information what kind of system should be used in routing:
+
+.. code-block:: hylang
+
+  (defn dispatch-message [message]
+    (setv system (. message routing-method))
+    (if (= system 'pressure-tube) (route-pressure-tube message)
+        (= system 'pigeon) (route-pigeon message)
+        (= system 'courier) (route-courier message))
+        (manual-routing message))
+
+Each and every routing system has unique set of data that they need for
+correctly routing the wrapped message:
+
+.. code-block:: hylang
+
+  (defn route-pressure-tube [message]
+    (setv tube (. message tube))
+    (setv pressure (if (= (. message priority) 'high)
+                       'extra-pressure
+                       'regular-pressure))
+    (insert-message tube message)
+    (set-pressure tube pressure))
+
+  (defn route-pigeon [message]
+    (setv destination (. message district))
+    (setv pigeon-house (select-house destination))
+    (setv pigeon (take-pigeon pigeon-house))
+    (attach-message pigeon)
+    (release-pigeon pigeon))
+
+Here is a little trick that Oseo came up with: Since every wrapped message has
+some common information and some information specific to the routing method,
+Oseo defined multiple types of named tuples for the task. This way wrapped
+messages sent via pressure tube do not have to know anything about carrier
+pigeons and vice versa. Oseo anticipates that new methods will be added in the
+future and wanted to build a system that is easy enough to extend at that point:
+
+.. code-block:: hylang
+
+  (setv PigeonMessage (namedtuple "PigeonMessage"
+                                  ["routing-method" "district"]))
+
+  (setv TubeMessage (namedtuble "TubeMessage"
+                                ["routing-method" "tube" "priority"]))
 
 .. index:: 
    single: datastructures; set
